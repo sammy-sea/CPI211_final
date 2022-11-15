@@ -23,6 +23,8 @@ public class MovingPlatform : MonoBehaviour
     private Color activeColor = new Color(0, 1, 0, 1); //green
     private Color returnColor = new Color(1, 1, 0, 1); //yellow
 
+    [SerializeField] private MovingPlatform alternateDimensionPlatform;
+
     //what state the platform is in
     private enum PlatformState{
         idle,
@@ -96,6 +98,9 @@ public class MovingPlatform : MonoBehaviour
     {
         if (collision.gameObject.tag.Equals("Player"))
         {
+            if(alternateDimensionPlatform!= null)
+                ActivateAlternate(alternateDimensionPlatform);
+
             riding = true;
             ridingObject = collision.gameObject.transform;
 
@@ -119,14 +124,14 @@ public class MovingPlatform : MonoBehaviour
             {
                 collision.gameObject.GetComponent<FirstPersonMovement>().momentumSpeedX = speed*newOffset.x;
                 collision.gameObject.GetComponent<FirstPersonMovement>().momentumSpeedZ = speed*newOffset.y;//momentumMultiplier * offset.z / Time.deltaTime;
-                collision.gameObject.GetComponent<FirstPersonMovement>().Momentum(3f);
+                collision.gameObject.GetComponent<FirstPersonMovement>().Momentum(1.5f);
             }
 
             if (platformState == PlatformState.reset)
             {
                 collision.gameObject.GetComponent<FirstPersonMovement>().momentumSpeedX = returnSpeed*newOffset.x;
-                collision.gameObject.GetComponent<FirstPersonMovement>().momentumSpeedZ = returnSpeed*newOffset.x;
-                collision.gameObject.GetComponent<FirstPersonMovement>().Momentum(3f);
+                collision.gameObject.GetComponent<FirstPersonMovement>().momentumSpeedZ = returnSpeed*newOffset.y;
+                collision.gameObject.GetComponent<FirstPersonMovement>().Momentum(1f);
             }
 
             print(collision.gameObject.GetComponent<Rigidbody>().velocity);
@@ -141,5 +146,16 @@ public class MovingPlatform : MonoBehaviour
         Start();
         alertTimer = 0f;
         timer = 0;
+    }
+
+    public void ActivateAlternate(MovingPlatform platform)
+    {
+
+        if (platform.platformState == PlatformState.idle)
+        {
+            platform.platformState = PlatformState.alert;
+            platform.alertTimer = 0.25f;
+            platform.meshRenderer.material.SetColor("_EmissionColor", activeColor);
+        }
     }
 }
