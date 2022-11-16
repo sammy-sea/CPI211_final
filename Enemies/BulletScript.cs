@@ -7,6 +7,7 @@ public class BulletScript : MonoBehaviour
     private Rigidbody rb;
     [SerializeField] private float bulletLife;
     [SerializeField] private float bulletSpeed;
+    [SerializeField] public float bulletDamage;
     private Transform parent;
     private float bulletTimeAlive;
     void Start()
@@ -14,15 +15,23 @@ public class BulletScript : MonoBehaviour
         rb = GetComponent<Rigidbody>();
         rb.AddForce(transform.up * bulletSpeed);
         bulletTimeAlive = 0;
+        bulletDamage = 50f;
     }
 
     void Update() {
         bulletTimeAlive += Time.deltaTime;
-        //print(bulletTimeAlive);
-        if (bulletTimeAlive >= bulletLife)
+        if (bulletTimeAlive >= bulletLife) //if bullet exceeds its lifetime, destroy itself
             Destroy(transform.parent.gameObject);
     }
+
     void OnTriggerEnter(Collider other) {
-        Destroy(transform.parent.gameObject);    
+        GameObject targetObject = other.transform.gameObject;
+        Destroy(transform.parent.gameObject); //destroy self on collision    
+        if (other.transform.gameObject.tag == "Player")
+        {
+            print("hit player for " + bulletDamage + " damage");
+            targetObject.GetComponent<PlayerHealth>().Hit(bulletDamage);
+        }
+        
     }
 }

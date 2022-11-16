@@ -23,7 +23,7 @@ public class TurretScript : MonoBehaviour
     {
         if (targetPlayer)
         {
-            Quaternion newRotation = Quaternion.LookRotation(targetPlayer.position - transform.position, Vector3.up); // use calculated rotation to rotate to player
+            Quaternion newRotation = Quaternion.LookRotation(targetPlayer.position - transform.position + new Vector3(0f, .6f, 0f), Vector3.up); // use calculated rotation to rotate to player
             transform.rotation = newRotation;
         }
     }
