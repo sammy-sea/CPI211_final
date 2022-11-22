@@ -5334,6 +5334,7 @@ GameObject:
   - component: {fileID: 2680037578511151998}
   - component: {fileID: 1268479884}
   - component: {fileID: 464915752}
+  - component: {fileID: 235473800}
   m_Layer: 0
   m_Name: PlayerFull1
   m_TagString: Player
@@ -5403,7 +5404,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 97fca36bd81de7c4cafce7bbf02ca611, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  speed: 5
+  speed: 9
   FPSCamera: {fileID: 8938280140441141434}
   movementState: 0
   targetVelocity: {x: 0, y: 0, z: 0}
@@ -5536,6 +5537,24 @@ MonoBehaviour:
   playerDimension: 0
   simulationSkybox: {fileID: 2100000, guid: 81f714daf7144784b8a2f42f1cd30927, type: 2}
   realWorldSkybox: {fileID: 0}
+--- !u!114 &235473800
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8954828083351090592}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 6b5d9484bb5599343953f3ec7180deb3, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  maxStamina: 1.5
+  climbSpeed: 10
+  climbHorizontalSpeed: 0
+  detectionLength: 0.7
+  sphereCastRadius: 0.25
+  maxWallLookAngle: 30
 --- !u!1 &8954867822765736084
 GameObject:
   m_ObjectHideFlags: 0
