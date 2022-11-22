@@ -57,7 +57,9 @@ public class Respawn : MonoBehaviour
 
     void InitiateRespawn()
     {
-        currentSection.Load();
+        if(currentSection)
+            currentSection.Load();
+
         playerStats.Start();
         transform.position = new Vector3(respawnX, respawnY, respawnZ);
     }
